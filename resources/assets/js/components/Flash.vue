@@ -20,14 +20,12 @@
                 this.flash(this.message);
             }
             // when js fire an flash message (ajax)
-            window.events.$on('flash', message => {
-                this.flash(message);
-            })
+            window.events.$on('flash', message => this.flash(message));
         },
 
         methods: {
             flash(message) {
-                this.body = this.message;
+                this.body = message;
                 this.show = true;
 
                 this.hide();

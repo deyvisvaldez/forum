@@ -43083,14 +43083,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
         // when js fire an flash message (ajax)
         window.events.$on('flash', function (message) {
-            _this.flash(message);
+            return _this.flash(message);
         });
     },
 
 
     methods: {
         flash: function flash(message) {
-            this.body = this.message;
+            this.body = message;
             this.show = true;
 
             this.hide();
@@ -43210,6 +43210,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.editing = false;
 
             flash('Updated!');
+        },
+        destroy: function destroy() {
+            axios.delete('/replies/' + this.attributes.id);
+
+            $(this.$el).fadeOut(300, function () {
+                flash('Your reply has been deleted.');
+            });
         }
     }
 });
