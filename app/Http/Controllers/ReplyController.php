@@ -24,7 +24,17 @@ class ReplyController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        return back();
+        return back()->with('flash', 'Your reply has been left.');
+    }
+
+    public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+        $reply->update(request(['body']));
+        /*if (auth()->id() == $reply->user_id) {
+            $reply->update(request(['body']));
+        }
+        return response('error', 500);*/
     }
 
     public function destroy(Reply $reply)
