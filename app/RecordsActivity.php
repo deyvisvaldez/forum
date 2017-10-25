@@ -15,6 +15,7 @@ trait RecordsActivity
             });
         }
 
+        // Only fired when a model is deleted not when a run a query
         static::deleting(function ($model) {
             $model->activity()->delete();
         });

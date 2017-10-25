@@ -4,6 +4,12 @@ namespace App;
 
 trait Favoritable
 {
+    protected static function bootFavoritable()
+    {
+        static::deleting(function ($model) {
+            $model->favorites->each->delete();
+        });
+    }
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorited');
@@ -20,7 +26,11 @@ trait Favoritable
     public function unfavorite()
     {
         $attributes = ['user_id' => auth()->id()];
-        $this->favorites()->where($attributes)->delete();
+        // this is a query, this dont fired the deleting event, changed it
+        //$this->favorites()->where($attributes)->delete();
+
+        // this YES fired the event because delete each model
+        $this->favorites()->where($attributes)->get()->each->delete();
     }
 
     public function isFavorited()
