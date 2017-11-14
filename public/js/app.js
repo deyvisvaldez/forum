@@ -43302,6 +43302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         add: function add(reply) {
             this.replies.push(reply);
+            this.$emit('added');
         },
         remove: function remove(index) {
             this.replies.splice(index, 1);
